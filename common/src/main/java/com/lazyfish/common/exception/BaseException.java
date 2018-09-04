@@ -31,6 +31,12 @@ public class BaseException extends RuntimeException implements Serializable {
 
     private BaseException(ErrorCode errorCode){
         this(errorCode.getCode(),errorCode.getLogs(),errorCode.getDescrible());
+        this.errorCode = errorCode;
+    }
+
+    private BaseException(ErrorCode errorCode,String logs){
+        this(errorCode.getCode(),StringUtil.isEmpty(logs)?errorCode.getLogs():logs,errorCode.getDescrible());
+        this.errorCode = errorCode;
     }
 
     public Integer getCode() {
