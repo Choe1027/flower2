@@ -25,16 +25,16 @@ public class BaseException extends RuntimeException implements Serializable {
         super(decrible);
     }
 
-    private BaseException(Integer code,String logs,String describle){
+    public BaseException(Integer code,String logs,String describle){
         super(StringUtil.isEmpty(logs)?(StringUtil.isEmpty(describle)?"未知错误":describle):logs);
     }
 
-    private BaseException(ErrorCode errorCode){
+    public BaseException(ErrorCode errorCode){
         this(errorCode.getCode(),errorCode.getLogs(),errorCode.getDescrible());
         this.errorCode = errorCode;
     }
 
-    private BaseException(ErrorCode errorCode,String logs){
+    public BaseException(ErrorCode errorCode,String logs){
         this(errorCode.getCode(),StringUtil.isEmpty(logs)?errorCode.getLogs():logs,errorCode.getDescrible());
         this.errorCode = errorCode;
     }

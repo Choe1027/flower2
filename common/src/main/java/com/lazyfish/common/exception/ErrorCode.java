@@ -12,13 +12,14 @@ package com.lazyfish.common.exception;
 public enum ErrorCode {
     not_known_error(-1,"未知错误","未知错误"),
     system_error(-9999,"系统服务异常","系统服务异常"),
+    system_lost_param(-9998,"缺少请求参数","缺少请求参数"),
     ;
 
     private Integer code;
     private String describle;
     private String logs;
 
-    ErrorCode(Integer code, String describle, String logs) {
+    private ErrorCode(Integer code, String describle, String logs) {
         this.code = code;
         this.describle = describle;
         this.logs = logs;

@@ -19,11 +19,9 @@ public class BackApplicationTests {
     @Test
     public void contextLoads() {
         BackUser backUser = new BackUser();
-        backUser.setId(1L);
-        backUser.setName("中国人");
-        backUser.setMobile("ssss222");
-        BackUser backUser1 = backUserService.get(backUser);
-        System.out.println(backUser1);
+        backUser.setId(2L);
+        backUser.setName("aaa");
+        backUser.setMobile("66666");
         backUserService.update(backUser);
     }
 

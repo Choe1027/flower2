@@ -1,5 +1,7 @@
 package com.lazyfish.core.pojo;
 
+import com.lazyfish.core.other.IBizBeanAction;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +18,7 @@ import javax.persistence.Transient;
  * @modify_remark
  */
 @MappedSuperclass // 用来标志子对象可以继承其中的注解
-public class BizBean extends BaseBean {
+public class BizBean extends BaseBean implements IBizBeanAction {
 
     private static final long serialVersionUID = 1L;
     /**
@@ -69,7 +71,8 @@ public class BizBean extends BaseBean {
         this.end_time = end_time;
     }
 
-    public void cleanSensitiveInfo(){
+    @Override
+    public void cleanSensitiveInfo() {
 
     }
 }

@@ -72,6 +72,14 @@ public interface BaseService<T> {
     List<T> selectCreateTimeDesc(T t);
 
     /**
+     * 根据自定义的排列顺序进行排序
+     * @param t
+     * @param orders
+     * @return
+     */
+    List<T> selectByOrder(T t, Sort.Order... orders);
+
+    /**
      *  根据id获取对象
      * @param id 对象的id
      * @return
@@ -94,21 +102,14 @@ public interface BaseService<T> {
 
     /**
      *
-     * @param t 要更新的对象
+     * @param t 要更新的对象， 需要包含id
      * @return
      */
-    Integer update(T t);
-
-    /**
-     * 删除
-     * @param t
-     * @return
-     */
-    void delete(T t);
+    void update(T t);
 
     /**
      * 根据id删除
-     * @param id
+     * @param t 删除的对象，需要包含id
      */
-    void deleteById(Long id);
+    void delete(T t);
 }
