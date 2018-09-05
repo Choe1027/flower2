@@ -21,7 +21,7 @@ public class BackApplicationTests {
         BackUser backUser = new BackUser();
         backUser.setId(1L);
         backUser.setName("中国人");
-        backUser.setMobile("ssss");
+        backUser.setMobile("ssss222");
         BackUser backUser1 = backUserService.get(backUser);
         System.out.println(backUser1);
         backUserService.update(backUser);
