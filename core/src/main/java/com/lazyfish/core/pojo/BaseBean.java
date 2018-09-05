@@ -14,7 +14,6 @@ import java.io.Serializable;
  * @modify_time
  * @modify_remark
  */
-
 public class BaseBean implements Serializable,Cloneable {
 
     private static final long serialVersionUID = 498226538729597654L;

@@ -1,7 +1,5 @@
 package com.lazyfish.core.repository;
 
-import com.lazyfish.core.pojo.BizUserBean;
-
 /**
  * @author cyk
  * @date 2018/9/4/004 16:51
@@ -11,7 +9,7 @@ import com.lazyfish.core.pojo.BizUserBean;
  * @modify_time
  * @modify_remark
  */
-public interface BaseUserRepository<T extends BizUserBean> extends BaseRepository {
+public interface BaseUserRepository<T> {
 
-    T findByMobile(String mobile);
+//    T findByMobile(String mobile);
 }

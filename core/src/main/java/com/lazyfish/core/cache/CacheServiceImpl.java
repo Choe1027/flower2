@@ -1,11 +1,10 @@
 package com.lazyfish.core.cache;
 
 
-import com.flower.common.exception.SysException;
-import com.flower.common.utils.DateUtils;
-import com.flower.common.utils.JsonUtil;
-import com.flower.common.utils.LoggerUtil;
-import com.flower.core.constant.Context;
+import com.lazyfish.common.utils.DateUtils;
+import com.lazyfish.common.utils.JsonUtil;
+import com.lazyfish.common.utils.LoggerUtil;
+import com.lazyfish.core.constant.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -204,7 +203,7 @@ public class CacheServiceImpl implements CacheService {
 			return cacheClient.lock(configBean.getFlag() + key, timeout);
 		} catch (Exception e) {
 			LoggerUtil.error(this.getClass(), "异常在bad()中处理", e);
-			throw new SysException(e);
+			throw new IllegalStateException(e);
 		} finally {
 			// cacheClient.close();
 		}
@@ -216,7 +215,7 @@ public class CacheServiceImpl implements CacheService {
 			return cacheClient.lock(configBean.getFlag() + key, Context.cache_lock_timeout);
 		} catch (Exception e) {
 			LoggerUtil.error(this.getClass(), "异常在bad()中处理", e);
-			throw new SysException(e);
+			throw new IllegalStateException(e);
 		} finally {
 			// cacheClient.close();
 		}

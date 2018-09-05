@@ -1,6 +1,7 @@
 package com.lazyfish.core.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -15,108 +16,99 @@ import java.util.List;
  */
 public interface BaseService<T> {
 
-    /**
-     * 分页查询
-     * @param t	使用T中不为null的字段查询
-     * @return	返回页码的对象，包含页码对应的数据
+    /*
+        Page 对象说明
+         content list数组对象
+         first 是否是首页
+         last 是否是最后一页
+         number 当前页码 从0开始
+         numberOfElements 当前页码的数据长度
+         size pageSize 页码的数量
+         totalElements 总的数据数量
+         totalPages 总页数
      */
-    Page<T> listPage(T t);
 
     /**
      * 分页查询
-     * @param t	使用T中不为null的字段查询
-     * @param start_time 开始时间
-     * @param end_time 结束时间
-     * @return	返回页码的对象，包含页码对应的数据
-     */
-    Page<T> listPage(T t, Long start_time, Long end_time);
-
-    /**
-     * 分页查询
-     * @param t	使用T中不为null的字段并查询根据创建时间倒序排列
-     * @return	返回页码的对象，包含页码对应的数据
-     */
-    Page<T> listPageDesc(T t);
-
-    /**
-     * 分页查询
-     * @param t	使用T中不为null的字段查询
-     * @param start_time 开始时间
-     * @param end_time 结束时间
-     * @return	返回页码的对象，包含页码对应的数据
-     */
-    Page<T> listPageDesc(T t, Long start_time, Long end_time);
-
-    /**
-     * 修改数据
-     * (id为null,抛出异常)
-     * @param t	依据T中id进行修改
-     * @return	修改条数
-     */
-    Integer update(T t);
-
-    /**
-     * 新增数据
-     * (无参数返回异常)
-     * @param t	依据不为空的字段进新增
-     * @return	返回条数
-     */
-    Integer add(T t);
-
-    /**
-     * 依据不为空的参数查询一条数据
-     * @param t	依据T中不为空的字段作为条件
-     * @return	返回单条数据
-     */
-    T get(T t);
-
-    /**
-     * 依据id查询一条数据
-     * @param id 唯一标识
-     * @return	返回单条数据
-     */
-    T getById(Long id);
-
-    /**
-     * 依据对象属性值删除数据
-     * (无参数返回异常)
-     * @param t	依据T中不为空的字段进行删除
+     *
+     * @param t        条件对象
+     * @param page     当前请求页 从0开始
+     * @param pageSize 一页显示的数量
      * @return
      */
-    Integer delete(T t);
+    Page<T> listPage(T t, int page, int pageSize);
 
     /**
-     * 依据对象属性查询所有数据
-     * (无分页，全量查询)
-     * @param t	依据T中不为null的属性进行查询
-     * @return	数据集合
+     * 分页降序查询 按照创建时间降序排序
+     * @param t        条件对象
+     * @param page     当前请求页 从0开始
+     * @param pageSize 一页显示的数量
+     * @return
+     */
+    Page<T> listPageCreateTimeDesc(T t, int page, int pageSize);
+
+    /**
+     *  根据传入的条件进行排序
+     * @param t  条件对象
+     * @param page 页码 从0开始
+     * @param pageSize 每页显示的数量
+     * @param orders 排序方式集合
+     * @return
+     */
+    Page<T> listPageByOrder(T t, int page, int pageSize,Sort.Order... orders);
+
+    /**
+     * 根据条件获取所有对象
+     * @param t
+     * @return
      */
     List<T> select(T t);
 
     /**
-     * 依据对象属性查询所有数据
-     * (无分页，全量查询)
-     * @param t	依据T中不为null的属性进行查询
-     * @return	数据集合
+     * 创建时间降序获取所有对象
+     * @param t
+     * @return
      */
-    List<T> selectDesc(T t);
+    List<T> selectCreateTimeDesc(T t);
 
     /**
-     * 依据对象属性查询所有数据
-     * @param t	使用T中不为null的字段查询
-     * @param start_time 开始时间
-     * @param end_time 结束时间
-     * @return	返回页码对应的数据集合
+     *  根据id获取对象
+     * @param id 对象的id
+     * @return
      */
-    List<T> select(T t, Long start_time, Long end_time);
+    T getById(Long id);
 
     /**
-     * 依据对象属性查询所有数据
-     * @param t	使用T中不为null的字段查询
-     * @param start_time 开始时间
-     * @param end_time 结束时间
-     * @return	返回页码对应的数据集合
+     * 根据对象传入的条件获取
+     * @param t
+     * @return
      */
-    List<T> selectDesc(T t, Long start_time, Long end_time);
+    T get(T t);
 
+    /**
+     * 添加对象
+     * @param t
+     * @return
+     */
+    T add(T t);
+
+    /**
+     *
+     * @param t 要更新的对象
+     * @return
+     */
+    Integer update(T t);
+
+    /**
+     * 删除
+     * @param t
+     * @return
+     */
+    void delete(T t);
+
+    /**
+     * 根据id删除
+     * @param id
+     */
+    void deleteById(Long id);
 }

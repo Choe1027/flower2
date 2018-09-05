@@ -7,6 +7,7 @@ import com.lazyfish.service.repository.BackUserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author cyk
@@ -18,13 +19,14 @@ import org.springframework.stereotype.Service;
  * @modify_remark
  */
 @Service
+@Transactional
 public class BackUserServiceImpl extends BaseServiceImpl<BackUser> implements BackUserService {
 
     @Autowired
     private BackUserRepository backUserRepository;
 
     @Override
-    public BaseRepository<BackUser> getMainRepository() {
+    public BaseRepository<BackUser,Long> getMainRepository() {
         return backUserRepository;
     }
 }

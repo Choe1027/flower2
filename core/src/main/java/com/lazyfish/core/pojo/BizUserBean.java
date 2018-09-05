@@ -13,7 +13,7 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class BizUserBean extends BizBean {
-
+    private static final long serialVersionUID = 1L;
     private String name;
     private String mobile;
     private String password;

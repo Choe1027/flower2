@@ -28,7 +28,6 @@ public class BackUserController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public BackUser add(HttpServletRequest request, @RequestBody BackUser backUser){
-        backUserService.add(backUser);
         return backUser;
     }
 

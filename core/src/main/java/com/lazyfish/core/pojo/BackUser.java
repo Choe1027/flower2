@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "back_user")
 public class BackUser extends BizUserBean {
+    private static final long serialVersionUID = 1L;
 
     private String account;
     private Integer state;
