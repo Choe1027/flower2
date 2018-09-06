@@ -17,7 +17,7 @@ import javax.persistence.Transient;
  * @modify_time
  * @modify_remark
  */
-@MappedSuperclass // 用来标志子对象可以继承其中的注解
+@MappedSuperclass // 用来标志子对象可以继承
 public class BizBean extends BaseBean implements IBizBeanAction {
 
     private static final long serialVersionUID = 1L;
@@ -26,16 +26,16 @@ public class BizBean extends BaseBean implements IBizBeanAction {
      */
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    protected Long id;
     /**
      * 创建时间
      */
-    private Long create_time;
+    protected Long create_time;
 
     @Transient //与数据库不对应的字段
-    private Long start_time;
+    protected Long start_time;
     @Transient
-    private Long end_time;
+    protected Long end_time;
 
 
 

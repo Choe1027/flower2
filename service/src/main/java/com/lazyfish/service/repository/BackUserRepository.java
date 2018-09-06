@@ -1,7 +1,8 @@
 package com.lazyfish.service.repository;
 
+import com.lazyfish.core.other.UserCommonAction;
 import com.lazyfish.core.pojo.BackUser;
-import com.lazyfish.core.repository.BaseUserRepository;
+import com.lazyfish.core.repository.BaseRepository;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,6 @@ import org.springframework.stereotype.Repository;
  * @modify_remark
  */
 @Repository
-public interface BackUserRepository extends BaseUserRepository<BackUser,Long> {
+public interface BackUserRepository extends BaseRepository<BackUser,Long>, UserCommonAction<BackUser> {
 
 }

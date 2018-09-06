@@ -1,6 +1,12 @@
 package com.lazyfish.core.pojo;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +26,11 @@ public class BackUser extends BizUserBean {
     private String account;
     private Integer state;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private Set<Role> roles;
 
     public String getAccount() {
         return account;
@@ -37,4 +48,11 @@ public class BackUser extends BizUserBean {
         this.state = state;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

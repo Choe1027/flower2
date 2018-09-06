@@ -1,5 +1,6 @@
 package com.lazyfish.back;
 
+import com.lazyfish.common.utils.JsonUtil;
 import com.lazyfish.core.pojo.BackUser;
 import com.lazyfish.core.service.BackUserService;
 
@@ -19,10 +20,15 @@ public class BackApplicationTests {
     @Test
     public void contextLoads() {
         BackUser backUser = new BackUser();
-        backUser.setId(2L);
-        backUser.setName("aaa");
-        backUser.setMobile("66666");
-        backUserService.update(backUser);
+        backUser.setId(3L);
+//        backUser.setName("aaa");
+//        backUser.setMobile("66666");
+//        backUser.setAccount("root");
+//        backUserService.update(backUser);
+//        BackUser mobile = backUserService.findByMobile("66666");
+//        Page<BackUser> search = backUserService.search(backUser);
+        BackUser user = backUserService.get(backUser);
+        System.out.println(JsonUtil.objToJson(user));
     }
 
 }
