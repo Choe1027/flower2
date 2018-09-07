@@ -4,6 +4,7 @@ import com.lazyfish.common.exception.BaseException;
 import com.lazyfish.common.exception.ErrorCode;
 import com.lazyfish.common.utils.StringUtil;
 import com.lazyfish.core.pojo.BackUser;
+import com.lazyfish.core.pojo.Role;
 import com.lazyfish.core.repository.BaseRepository;
 import com.lazyfish.core.service.BackUserService;
 import com.lazyfish.service.repository.BackUserRepository;
@@ -21,8 +22,10 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.SetJoin;
 
 /**
  * @author cyk
@@ -48,19 +51,26 @@ public class BackUserServiceImpl extends BaseServiceImpl<BackUser> implements Ba
     @Override
     public Page<BackUser> search(BackUser backUser) {
 
-        Pageable pageable = new PageRequest(1,1);
+        Pageable pageable = new PageRequest(1,10);
         Specification<BackUser> specification = new Specification<BackUser>() {
             @Override
             public Predicate toPredicate(Root<BackUser> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-//                if (!StringUtil.isEmpty(backUser.getAccount())){
-//                    predicates.add(cb.like(root.get("account").as(String.class), "%" + backUser.getAccount() + "%"));
-//                }
                 Predicate[] pre = new Predicate[predicates.size()];
+
+                if (!StringUtil.isEmpty(backUser.getName())){
+                    predicates.add(cb.equal(root.get("name").as(String.class), backUser.getName()));
+                }
+                // 多对多联表
+                SetJoin<BackUser, Role> roles = root.join(root.getModel().getSet("roles", Role.class), JoinType.LEFT);
+                // 这是在连接条件上添加
+                roles.on(cb.equal(roles.get("name").as(String.class),"admin"));
+                predicates.add(cb.equal(roles.get("name").as(String.class),"admin"));
                 criteriaQuery.where(predicates.toArray(pre));
                 return cb.and(predicates.toArray(pre));
             }
         };
+        List<BackUser> all = backUserRepository.findAll(specification);
         return backUserRepository.findAll(specification,pageable);
     }
 

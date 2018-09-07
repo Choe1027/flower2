@@ -105,7 +105,7 @@ public interface BaseService<T> {
      * @param t 要更新的对象， 需要包含id
      * @return
      */
-    void update(T t);
+    T update(T t);
 
     /**
      * 根据id删除

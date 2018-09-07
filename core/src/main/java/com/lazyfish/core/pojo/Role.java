@@ -1,6 +1,6 @@
 package com.lazyfish.core.pojo;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Set;
 
@@ -23,12 +23,12 @@ public class Role extends BizBean{
     /**角色名称*/
     private String name;
     /**角色功能描述*/
-    private String desc;
+    private String remark;
     /**0 启用 1 禁用*/
     private Integer state;
 
     @ManyToMany(mappedBy = "roles")
-    @JsonBackReference
+    @JSONField(serialize = false)
     private Set<BackUser> users;
 
     public String getName() {
@@ -39,12 +39,12 @@ public class Role extends BizBean{
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Integer getState() {

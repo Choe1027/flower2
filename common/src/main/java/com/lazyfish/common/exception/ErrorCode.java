@@ -10,9 +10,11 @@ package com.lazyfish.common.exception;
  * @modify_remark
  */
 public enum ErrorCode {
-    not_known_error(-1,"未知错误","未知错误"),
-    system_error(-9999,"系统服务异常","系统服务异常"),
-    system_lost_param(-9998,"缺少请求参数","缺少请求参数"),
+    not_known_error(10000,"未知错误","未知错误"),
+    system_error(9999,"系统服务异常","系统服务异常"),
+    system_null_error(9998, "登录失效,请重新登录","session中缺少token" ),
+    system_lost_param(8000,"缺少请求参数","缺少请求参数"),
+    login_status_expired(100, "登录失效,请重新登录","session中缺少token" ),
     ;
 
     private Integer code;

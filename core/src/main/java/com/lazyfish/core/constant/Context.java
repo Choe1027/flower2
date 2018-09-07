@@ -72,4 +72,5 @@ public interface Context {
      * session 中存储微信登录用户的session_key
      */
     String session_wechat_session_key = "session_wechat_session_key";
+
 }

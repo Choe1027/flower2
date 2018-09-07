@@ -18,4 +18,5 @@ public interface BackUserService extends BaseService<BackUser> {
     Page<BackUser> search(BackUser backUser);
 
     BackUser findByMobile(String mobile);
+
 }

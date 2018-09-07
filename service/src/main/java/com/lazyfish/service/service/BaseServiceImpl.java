@@ -69,7 +69,7 @@ public abstract class BaseServiceImpl<T extends BizBean> implements BaseService<
 
     @Override
     public Page<T> listPage(T t, int page, int pageSize) {
-        return listPageByOrder(t, page, pageSize, null);
+        return listPageByOrder(t, page, pageSize, new Sort.Order[]{});
     }
 
     @Override
@@ -92,7 +92,7 @@ public abstract class BaseServiceImpl<T extends BizBean> implements BaseService<
 
     @Override
     public List<T> select(T t) {
-        return selectByOrder(t, null);
+        return selectByOrder(t, new Sort.Order[]{});
     }
 
     @Override
@@ -138,6 +138,9 @@ public abstract class BaseServiceImpl<T extends BizBean> implements BaseService<
     @Override
     @Transactional
     public T add(T t) {
+        if (t.getCreate_time() == null ){
+            t.setCreate_time(System.currentTimeMillis());
+        }
         T save = getMainRepository().save(t);
         getMainRepository().flush();
         cacheHelper.modifyCacheByAddAndGet(this, cacheMap, cacheService, save);
@@ -145,12 +148,19 @@ public abstract class BaseServiceImpl<T extends BizBean> implements BaseService<
     }
 
     @Override
-    public void update(T t) {
+    public T update(T t) {
         if (t.getId() == null || t.getId().equals(0L)) {
             throw new BaseException(ErrorCode.system_lost_param);
         }
-        getMainRepository().saveAndFlush(t);
+        // 此处处理只修改不为空的参数
+        T data = getById(t.getId());
+        if (data == null){
+            throw new BaseException(ErrorCode.system_error,"更新对象不存在");
+        }
+        ObjectUtil.insertObj(data,t);
+        getMainRepository().saveAndFlush(data);
         cacheHelper.modifyCacheByUpdate(this, this, cacheMap, cacheService, t);
+        return data;
     }
 
     @Override
